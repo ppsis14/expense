@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="645.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.HomePageController">
+   <children>
+      <Button layoutX="131.0" layoutY="413.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" text="ADD" />
+      <Label layoutX="31.0" layoutY="28.0" prefHeight="17.0" prefWidth="162.0" text="Thikamporn" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="147.0" prefHeight="86.0" prefWidth="224.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: BLACK; -fx-border-radius: 5;" text="TH31,254.00" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="84.0" text="My Wallet " />
+   </children>
+</AnchorPane>
