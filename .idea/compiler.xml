@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lab04-expense" />
+        <module name="Lab04-expense" />
       </profile>
     </annotationProcessing>
   </component>
