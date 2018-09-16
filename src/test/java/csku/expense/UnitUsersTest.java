@@ -1,6 +1,5 @@
 package csku.expense;
 
-import csku.expense.Users;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class UnitUsersTest {
     private Users users;
     int id = 1;
-    int pin = 6499;
+    String pin = "6499";
+    String name = "Thikamporn";
     double balance = 200;
 
     @BeforeEach
-    void setUp(){ users = new Users(id, pin, balance); }
+    void setUp(){ users = new Users(id, pin,name, balance); }
 
     @Test
     void getUserBalance() {

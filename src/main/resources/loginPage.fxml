@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="550.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.LoginPageController">
+   <children>
+      <Text layoutX="158.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN IN">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <VBox layoutX="79.0" layoutY="215.0" prefHeight="200.0" prefWidth="230.0" spacing="20.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="218.0" spacing="15.0" style="-fx-border-color: #566573; -fx-border-radius: 5;">
+               <children>
+                  <FontAwesomeIconView fill="#a0a2ab" glyphName="USER" size="25" text="">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <TextField fx:id="idField" alignment="CENTER" prefHeight="29.0" prefWidth="185.0" promptText="ID" style="-fx-background-color: #ffffff; -fx-text-fill: #a0a2ab;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="218.0" spacing="10.0" style="-fx-border-color: #566573; -fx-border-radius: 5;">
+               <children>
+                  <FontAwesomeIconView fill="#a0a2ab" glyphName="KEY" size="25" text="">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </FontAwesomeIconView>
+                  <PasswordField fx:id="pinField" alignment="CENTER" prefHeight="29.0" prefWidth="185.0" promptText="PIN" style="-fx-background-color: #ffffff; -fx-text-fill: #a0a2ab;">
+                     <HBox.margin>
+                        <Insets right="2.0" />
+                     </HBox.margin>
+                  </PasswordField>
+               </children>
+            </HBox>
+            <Label fx:id="showErrorLogin" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="237.0" textAlignment="CENTER" textFill="#d00303" />
+            <JFXButton fx:id="loginButton" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#handleLoginButton" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #F4D03F; -fx-background-radius: 5;" text="Login" textFill="#2c3e50">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="cancelButton" buttonType="RAISED" maxWidth="1.7976931348623157E308" onAction="#handleCancelButton" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: #566573; -fx-background-radius: 5;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="111.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/icons8-wallet.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
