@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.HomePageController">
+<AnchorPane prefHeight="550.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.HomePageController">
    <children>
-      <Button layoutX="53.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="ADD" />
-      <Label alignment="CENTER" layoutX="113.0" layoutY="29.0" prefHeight="17.0" prefWidth="162.0" text="Thikamporn   Wallet" textAlignment="CENTER" />
-      <Label alignment="CENTER" layoutX="98.0" layoutY="62.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" text="TH 31,659.00" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="addInformation" layoutX="53.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="ADD" />
+      <Label fx:id="showUser" alignment="CENTER" layoutX="113.0" layoutY="29.0" prefHeight="17.0" prefWidth="162.0" text="Thikamporn   Wallet" textAlignment="CENTER" />
+      <Label fx:id="showBalance" alignment="CENTER" layoutX="98.0" layoutY="62.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" text="TH 31,659.00" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
       <Label layoutX="152.0" layoutY="100.0" text="Current balance" />
-      <TableView layoutX="53.0" layoutY="187.0" prefHeight="122.0" prefWidth="283.0">
+      <TableView fx:id="tableListToday" layoutX="53.0" layoutY="187.0" prefHeight="122.0" prefWidth="283.0">
         <columns>
           <TableColumn prefWidth="182.0" text="Detail" />
           <TableColumn prefWidth="99.0" text="Amount" />

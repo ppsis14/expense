@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class MainProgram {
     public static void main(String[] args) throws IOException {
-        Users users1 = new Users(1, 6499, 200);
+        Users users1 = new Users(1, "6499", "Thikamporn",200);
         System.out.println("<<< Welcome >>>");
 
         Scanner in = new Scanner(System.in);
@@ -18,7 +18,7 @@ public class MainProgram {
             System.out.print("Enter ID : ");
             int id = in.nextInt();
             System.out.print("Enter PIN: ");
-            int pin = in.nextInt();
+            String pin = in.nextLine();
             if (users1.validateUser(id, pin)) {
                 System.out.println("Welcome user id : " + users1.getId());
                 System.out.println("Balance = " + users1.getUserBalance());
@@ -33,7 +33,7 @@ public class MainProgram {
                         if (detail != null){
                             System.out.print("Amount: ");
                             double amount = in.nextDouble();
-                            users1.userAddIncome(amount);
+                            users1.addIncome(amount);
                             System.out.println(detail + " " + amount + " "+ " Baht");
                             System.out.println("Your Balance is " + users1.getUserBalance() + " Baht");
                         }
@@ -45,7 +45,7 @@ public class MainProgram {
                         if (detail != null){
                             System.out.print("Amount: ");
                             double amount = in.nextDouble();
-                            users1.userAddExpense(amount);
+                            users1.addExpense(amount);
                             System.out.println(detail + " " + amount + " "+ " Baht");
                             System.out.println("Your Balance is " + users1.getUserBalance() + " Baht");
                         }

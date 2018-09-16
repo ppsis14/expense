@@ -13,23 +13,23 @@ public class MyStepDef {
 
     @Before
     public void initial(){
-        users = new Users(1, 6499, 200);
+        users = new Users(1, "6499", "Thikamporn",  200);
     }
 
     @Given("a user with id (\\d+) and pin (\\d+) exists")
     public void aUserWithIdAndPinExists(int id, int pin) {
         assertEquals(1, users.getId());
-        assertEquals(6499, users.getPin());
+        assertEquals("6499", users.getPin());
 
     }
 
     @Given("a customer with id (\\d+) and pin (\\d+) with balance (\\d+) exists")
     public void aCustomerWithIdAndPinWithBalanceExists(int id, int pin, int balance) {
-        users = new Users(1, 6499, 200);
+        users = new Users(1, "6499", "Thikamporn",  200);
     }
 
     @When("I login to my account with id (\\d+) and pin (\\d+)")
-    public void iLoginToMyAccountWithIdAndPin(int id, int pin){ validLogin = users.validateUser(id, pin); }
+    public void iLoginToMyAccountWithIdAndPin(int id, String pin){ validLogin = users.validateUser(id, pin); }
 
     @Then("I can login")
     public void iCanLogin() { assertTrue(validLogin); }
@@ -40,13 +40,11 @@ public class MyStepDef {
     }
 
     @When("I add income more than zero is (\\d+)")
-    public void iAddIncomeMoreThanZeroIs(double amount) {
-        users.userAddIncome(amount);
-    }
+    public void iAddIncomeMoreThanZeroIs(double amount) { users.addIncome(amount); }
 
     @When("I add income less than zero is -(\\d+)")
     public void iAddAddIncomeLessThanZeroIs(double amount) {
-        users.userAddIncome(amount* (-1));
+        users.addIncome(amount* (-1));
     }
 
     @Then("my account balance of add income is (\\d+)")
@@ -56,12 +54,12 @@ public class MyStepDef {
 
     @When("I add expense more than zero is (\\d+)")
     public void iAddExpenseMoreThanZeroIs(double amount) {
-        users.userAddExpense(amount);
+        users.addExpense(amount);
     }
 
     @When("I add expense less than zero is -(\\d+)")
     public void iAddExpenseLessThanZeroIs(double amount){
-        users.userAddIncome(amount* (-1));
+        users.addIncome(amount* (-1));
     }
 
     @Then("my account balance of add expense is (\\d+)")
