@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -55,7 +56,7 @@
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="logoutBtnHome" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogoutBtnHomeTab" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK; -fx-border-radius: 5;" text="LOGOUT" />
+                              <JFXButton fx:id="logoutBtn" maxWidth="1.7976931348623157E308" onAction="#handleLogoutBtnHomeTab" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="LOGOUT" />
                            </children>
                         </VBox>
                      </children>
@@ -73,18 +74,30 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="balanceLabelAddPage" alignment="CENTER" contentDisplay="CENTER" layoutX="204.0" layoutY="60.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
+                        <Label fx:id="balanceLabelAddPage" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="55.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="249.0" layoutY="99.0" text="Current balance" />
-                        <VBox layoutX="155.0" layoutY="149.0" prefHeight="307.0" prefWidth="291.0" spacing="20.0">
+                        <Label layoutX="251.0" layoutY="94.0" text="Current balance" />
+                        <VBox layoutX="155.0" layoutY="149.0" prefHeight="314.0" prefWidth="291.0" spacing="20.0">
                            <children>
                               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                                  <children>
+                                    <Label prefHeight="17.0" prefWidth="84.0" text="Date :" textAlignment="CENTER" />
+                                    <DatePicker fx:id="dateLabel" prefHeight="30.0" prefWidth="190.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
                                     <Label prefHeight="17.0" prefWidth="84.0" text="Categories : " />
-                                    <TextField fx:id="categories" prefHeight="30.0" prefWidth="190.0" />
+                                    <ChoiceBox fx:id="categories" prefHeight="27.0" prefWidth="192.0" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="84.0" text="Type :" textAlignment="CENTER" />
+                                    <ChoiceBox fx:id="typeOfExpense" prefHeight="27.0" prefWidth="192.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
@@ -99,23 +112,11 @@
                                     <TextField fx:id="amountLabel" prefHeight="30.0" prefWidth="190.0" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Date :" textAlignment="CENTER" />
-                                    <DatePicker fx:id="dateLabel" prefHeight="30.0" prefWidth="190.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Type :" textAlignment="CENTER" />
-                                    <TextField fx:id="kindOfExpense" prefHeight="30.0" prefWidth="190.0" promptText="In/Ex" />
-                                 </children>
-                              </HBox>
-                              <Button fx:id="addBtn" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleAddBtn" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="ADD" textAlignment="CENTER">
+                              <JFXButton fx:id="addBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#handleAddBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="ADD" textAlignment="CENTER">
                                  <VBox.margin>
-                                    <Insets left="80.0" />
+                                    <Insets left="120.0" />
                                  </VBox.margin>
-                              </Button>
+                              </JFXButton>
                            </children>
                         </VBox>
                      </children>
@@ -139,15 +140,22 @@
                            </font>
                         </Label>
                         <Label layoutX="251.0" layoutY="94.0" text="Current balance" />
-                        <TableView fx:id="expenseListTable" editable="true" layoutX="33.0" layoutY="167.0" prefHeight="307.0" prefWidth="535.0">
+                        <TableView fx:id="expenseListTable" editable="true" layoutX="21.0" layoutY="135.0" prefHeight="307.0" prefWidth="557.0" AnchorPane.topAnchor="135.0">
                           <columns>
-                              <TableColumn fx:id="date" prefWidth="91.0" text="Date" />
-                              <TableColumn fx:id="type" prefWidth="119.0" text="Categories" />
-                              <TableColumn fx:id="details" minWidth="0.0" prefWidth="190.0" text="Detail" />
-                              <TableColumn fx:id="amount" prefWidth="81.0" text="Amount" />
-                              <TableColumn fx:id="chooseType" prefWidth="53.0" text="In/Ex" />
+                              <TableColumn fx:id="date" minWidth="90.0" prefWidth="90.0" text="Date" />
+                              <TableColumn fx:id="type" minWidth="110.0" prefWidth="110.0" text="Categories" />
+                              <TableColumn fx:id="details" minWidth="220.0" prefWidth="220.0" text="Detail" />
+                              <TableColumn fx:id="amount" minWidth="80.0" text="Amount" />
+                              <TableColumn fx:id="chooseType" minWidth="80.0" text="In/Ex" />
                           </columns>
                         </TableView>
+                        <HBox alignment="CENTER" layoutX="164.0" layoutY="452.0" prefHeight="40.0" prefWidth="275.0" spacing="10.0">
+                           <children>
+                              <JFXButton fx:id="editBtn" onAction="#handleEditBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="EDIT" />
+                              <JFXButton fx:id="saveBtn" onAction="#handleSaveBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="SAVE" />
+                              <JFXButton fx:id="showBtn" onAction="#handleShowDataFormTextBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="SHOW" />
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
               </content>

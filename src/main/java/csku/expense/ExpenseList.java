@@ -55,4 +55,9 @@ public class ExpenseList {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return date + " " + category + " " + detail + " " + amount + " " + type;
+    }
 }
