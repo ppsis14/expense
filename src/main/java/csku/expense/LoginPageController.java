@@ -23,35 +23,37 @@ public class LoginPageController implements Initializable {
     @FXML private JFXButton loginButton;
     @FXML private JFXButton cancelButton;
 
-    Users users = new Users(1, "6499", "Thikamporn", 200.0);
+    Users users = new Users("1", "6499", "Thikamporn", 200.0);
 
     @FXML
     void handleCancelButton(ActionEvent event) {
         idField.clear();
         pinField.clear();
+        showErrorLogin.setText("");
 
     }
 
     @FXML
     void handleLoginButton(ActionEvent event) throws IOException {
-        if (idField.getText().equalsIgnoreCase("") || pinField.getText().equalsIgnoreCase("")){
-            showErrorLogin.setText("Your ID or PIN incorrect");
-        }
-        else if (idField.getText().equalsIgnoreCase("") && pinField.getText().equalsIgnoreCase("")){
-            showErrorLogin.setText("Your ID or PIN incorrect");
-        }
-        else if (users.validateUser(Integer.valueOf(idField.getText()), pinField.getText()))
+        if (users.validateUser(idField.getText(), pinField.getText()))
         {
             FXMLLoader loader = new FXMLLoader();
             loginButton.getScene().getWindow().hide();
             Stage homeWindow = new Stage();
-            Parent root = loader.load(getClass().getResource("/homePage.fxml"));
+            Parent root = loader.load(getClass().getResource("/mainPage.fxml"));
             Scene scene = new Scene(root);
             homeWindow.setScene(scene);
             homeWindow.show();
             homeWindow.setResizable(true);
 
         }
+        else if (idField.getText().equalsIgnoreCase("") || pinField.getText().equalsIgnoreCase("")){
+            showErrorLogin.setText("Your ID or PIN incorrect");
+        }
+        else if (idField.getText().equalsIgnoreCase("") && pinField.getText().equalsIgnoreCase("")){
+            showErrorLogin.setText("Your ID or PIN incorrect");
+        }
+        else showErrorLogin.setText("Your ID or PIN incorrect");
     }
 
     @Override

@@ -13,23 +13,23 @@ public class MyStepDef {
 
     @Before
     public void initial(){
-        users = new Users(1, "6499", "Thikamporn",  200);
+        users = new Users("1", "6499", "Thikamporn",  200);
     }
 
     @Given("a user with id (\\d+) and pin (\\d+) exists")
     public void aUserWithIdAndPinExists(int id, int pin) {
-        assertEquals(1, users.getId());
+        assertEquals("1", users.getId());
         assertEquals("6499", users.getPin());
 
     }
 
     @Given("a customer with id (\\d+) and pin (\\d+) with balance (\\d+) exists")
     public void aCustomerWithIdAndPinWithBalanceExists(int id, int pin, int balance) {
-        users = new Users(1, "6499", "Thikamporn",  200);
+        users = new Users("1", "6499", "Thikamporn",  200);
     }
 
     @When("I login to my account with id (\\d+) and pin (\\d+)")
-    public void iLoginToMyAccountWithIdAndPin(int id, String pin){ validLogin = users.validateUser(id, pin); }
+    public void iLoginToMyAccountWithIdAndPin(String id, String pin){ validLogin = users.validateUser(id, pin); }
 
     @Then("I can login")
     public void iCanLogin() { assertTrue(validLogin); }

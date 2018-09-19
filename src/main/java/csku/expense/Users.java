@@ -1,13 +1,12 @@
 package csku.expense;
 
-public class Users implements ExpenseTran{
-    private int id;
+public class Users implements ExpenseTransaction {
+    private String id;
     private String pin;
     private String name;
     private double userBalance;
-    //private ExpenseTransaction expenseTransaction;
 
-    public Users(int id, String pin, String name, double userBalance) {
+    public Users(String id, String pin, String name, double userBalance) {
         this.id = id;
         this.pin = pin;
         this.name = name;
@@ -16,34 +15,18 @@ public class Users implements ExpenseTran{
 
     }
 
-/*    public Users(int id, int pin, double userBalance) {
-        this.pin = pin;
-        this.id = id;
-        if (userBalance < 0) userBalance = 0.0;
-        expenseTransaction = new ExpenseTransaction(userBalance);
-        this.userBalance = expenseTransaction.getCurrentMoney();
-    }*/
-
     public String getPin() { return pin; }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
 
     public String getName() { return name; }
 
     public double getUserBalance() { return this.userBalance; }
 
-/*    public void userAddIncome(double amount){
-        expenseTransaction.addIncome(amount);
-    }
-
-    public void userAddExpense(double amount){
-        expenseTransaction.addExpense(amount);
-    }*/
-
     public boolean matchPin(String aPin){ return pin.equals(aPin); }
 
-    public boolean validateUser(int idNumber, String  pin){
-        return idNumber == id && matchPin(pin);
+    public boolean validateUser(String idNumber, String  pin){
+        return idNumber.equals(id) && matchPin(pin);
     }
 
     @Override
