@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UnitUsersTest {
     private Users users;
-    int id = 1;
+    String id = "1";
     String pin = "6499";
     String name = "Thikamporn";
     double balance = 200;
 
     @BeforeEach
-    void setUp(){ users = new Users(id, pin,name, balance); }
+    void setUp(){ users = new Users(id, pin, name, balance); }
 
     @Test
     void getUserBalance() {
@@ -21,9 +21,9 @@ class UnitUsersTest {
     }
 
     @Test
-    void  getId() {assertEquals(1, users.getId());}
+    void  getId() {assertEquals("1", users.getId());}
     @Test
-    void getPin(){ assertEquals(6499, users.getPin()); }
+    void getPin(){ assertEquals("6499", users.getPin()); }
 
     @Test
     void testMatchPinValid() {

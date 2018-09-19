@@ -1,24 +1,35 @@
 package csku.expense;
 
 public class ExpenseList {
-    private String catagory;
+    private String date;
+    private String category;
     private String detail;
     private double amount;
-    private String date;
+    private String type;
 
-    public ExpenseList(String catagory, String detail, double amount, String date) {
-        this.catagory = catagory;
+
+    public ExpenseList(String date, String category, String detail, double amount, String type) {
+        this.date = date;
+        this.category = category;
         this.detail = detail;
         this.amount = amount;
+        this.type = type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getCatagory() {
-        return catagory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCatagory(String catagory) {
-        this.catagory = catagory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getDetail() {
@@ -37,11 +48,11 @@ public class ExpenseList {
         this.amount = amount;
     }
 
-    public String getDate() {
-        return date;
+    public String getType() {
+        return type;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setType(String type) {
+        this.type = type;
     }
 }

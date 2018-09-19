@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class MainProgram {
     public static void main(String[] args) throws IOException {
-        Users users1 = new Users(1, "6499", "Thikamporn",200);
+        Users users1 = new Users("1", "6499", "Thikamporn",200);
         System.out.println("<<< Welcome >>>");
 
         Scanner in = new Scanner(System.in);
@@ -16,7 +16,7 @@ public class MainProgram {
         while (true) {
 
             System.out.print("Enter ID : ");
-            int id = in.nextInt();
+            String id = in.nextLine();
             System.out.print("Enter PIN: ");
             String pin = in.nextLine();
             if (users1.validateUser(id, pin)) {
