@@ -6,3 +6,4 @@
 2018-09-12,Transport,bus no. 66,11.0,Income
 2018-09-26,Transport,Bus no. 67,6.5,Income
 2018-09-20,Home,mom give money,250.0,Income
+2018-09-18,Food & Drink,mom give money,100.0,Income
