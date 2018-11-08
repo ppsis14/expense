@@ -1,10 +1,16 @@
 package csku.expense;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Users implements ExpenseTransaction {
     private String id;
     private String pin;
     private String name;
     private double userBalance;
+    private double totalIncome;
+    private double totalExpense;
+
 
     public Users(String id, String pin, String name, double userBalance) {
         this.id = id;
@@ -29,12 +35,30 @@ public class Users implements ExpenseTransaction {
         return idNumber.equals(id) && matchPin(pin);
     }
 
-    @Override
-    public void addIncome(double incomeMoney) {
-        if (incomeMoney > 0) userBalance += incomeMoney;
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public double getTotalExpense() {
+        return totalExpense;
     }
 
     @Override
-    public void addExpense(double expenseMoney) { if (expenseMoney > 0) userBalance -= expenseMoney;}
+    public void addIncome(double incomeMoney) {
+
+        if (incomeMoney > 0) {
+            totalIncome += incomeMoney;
+            userBalance += incomeMoney;
+        }
+
+    }
+
+    @Override
+    public void addExpense(double expenseMoney)
+        { if (expenseMoney > 0) {
+            totalExpense += expenseMoney;
+            userBalance -= expenseMoney;
+        }
+    }
 
 }

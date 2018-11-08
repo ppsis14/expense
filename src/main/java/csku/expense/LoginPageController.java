@@ -44,7 +44,7 @@ public class LoginPageController implements Initializable {
             Scene scene = new Scene(root);
             homeWindow.setScene(scene);
             homeWindow.show();
-            homeWindow.setResizable(true);
+            homeWindow.setResizable(false);
 
         }
         else if (idField.getText().equalsIgnoreCase("") || pinField.getText().equalsIgnoreCase("")){

@@ -21,13 +21,10 @@ import java.util.ResourceBundle;
 
 import static java.lang.Double.parseDouble;
 
-
 public class MainPageController implements Initializable {
     // home tab
     @FXML private Label showUserLogin;
-    @FXML private Label balanceLabelHomePage;
     @FXML private JFXButton logoutBtn;
-    @FXML private Label balanceLabelListPage;
     @FXML private Label balanceLabelAddPage;
 
     // add tab function
@@ -49,17 +46,21 @@ public class MainPageController implements Initializable {
     @FXML private JFXButton editBtn;
     @FXML private JFXButton saveBtn;
     @FXML private JFXButton showBtn;
+    @FXML private ComboBox<String> totalByTypeOfExpense;
+    @FXML private Label showTotal;
 
 
 
     private Users users = new Users("1" ,"6499", "Thikamporn", 200.0);
+    private DataAccessor dataAccessor;
     private ObservableList<ExpenseList> list = FXCollections.observableArrayList();
 
-
-
+    public void setDataAccessor(DataAccessor dataAccessor) {
+        this.dataAccessor = dataAccessor;
+    }
 
     @FXML
-    void handleEditBtn(ActionEvent event) {
+    public void handleEditBtn(ActionEvent event) {
         expenseListTable.setEditable(true);
 
         date.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -95,25 +96,17 @@ public class MainPageController implements Initializable {
             }
         });
 
-
-        /*amount.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, Double>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setType(event.getNewValue());
-            }
-        });*/
-
     }
 
     @FXML
-    void handleSaveBtn(ActionEvent event) {
-        expenseListTable.setEditable(false);
-        //printExpenseList();
+    public void handleSaveBtn(ActionEvent event) {
+        //expenseListTable.setEditable(false);
+        dataAccessor.storeDataTo();
     }
 
 
     @FXML
-    void handleLogoutBtnHomeTab(ActionEvent event) throws IOException {
+    public void handleLogoutBtnHomeTab(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         logoutBtn.getScene().getWindow().hide();
         Stage loginWindow = new Stage();
@@ -161,12 +154,13 @@ public class MainPageController implements Initializable {
     }
 
     @FXML
-    void handleShowDataFormTextBtn(ActionEvent event) {
-        readFormFile();
+    public void handleShowDataFormTextBtn(ActionEvent event) {
+        //readFormFile();
+        dataAccessor.loadDataFrom();
     }
 
     @FXML
-    void handleAddBtn(ActionEvent event) {
+    public void handleAddBtn(ActionEvent event) {
         list.add(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
         if (typeOfExpense.getValue().equals("Income"))users.addIncome(parseDouble(amountLabel.getText()));
         else if (typeOfExpense.getValue().equals("Expense"))users.addExpense(parseDouble(amountLabel.getText()));
@@ -177,8 +171,18 @@ public class MainPageController implements Initializable {
 
     }
 
+    @FXML
+    public void handleShowTotalFollowTypeOfExpense(ActionEvent event) {
+        if (totalByTypeOfExpense.getValue().equals("Income"))
+            showTotal.setText(String.valueOf(users.getTotalIncome()));
+        else if (totalByTypeOfExpense.getValue().equals("Expense"))
+            showTotal.setText(String.valueOf(users.getTotalExpense()));
+        else showTotal.setText("");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         showUserLogin.setText(users.getName().toUpperCase());
         setBalanceAllPage(users.getUserBalance());
         expenseListTable.setEditable(false);
@@ -193,6 +197,11 @@ public class MainPageController implements Initializable {
         typeOfExpense.setValue("Income");
         typeOfExpense.getItems().addAll(typeExpense);
 
+        ObservableList<String> totalOfExpense = FXCollections.observableArrayList("None", "Income", "Expense");
+        totalByTypeOfExpense.getSelectionModel().selectFirst();
+        totalByTypeOfExpense.setValue("None");
+        totalByTypeOfExpense.setItems(totalOfExpense);
+
 
         date.setCellValueFactory(new PropertyValueFactory<>("date"));
         type.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -203,14 +212,13 @@ public class MainPageController implements Initializable {
         expenseListTable.setItems(list);
 
 
+
         //expenseListTable.getColumns().setAll(date, type, details, amount, chooseType);
 
     }
 
     private void setBalanceAllPage(double currentBalance){
-        balanceLabelHomePage.setText("TH " + currentBalance);
-        balanceLabelAddPage.setText("TH " + currentBalance);
-        balanceLabelListPage.setText("TH " + currentBalance);
+        balanceLabelAddPage.setText(currentBalance + " BHT ");
     }
 
     private String getDate(){
@@ -221,15 +229,10 @@ public class MainPageController implements Initializable {
     private void clearData(){
         categories.setValue("Food & Drink");
         typeOfExpense.setValue("Income");
+        totalByTypeOfExpense.setValue("None");
         detailLabel.clear();
         amountLabel.clear();
     }
-
-/*    private String printExpenseList(){
-        for (ExpenseList e : list)
-        return System.out.println(e.getDate() + " " + e.getCategory() + " " + e.getDetail() + " " + e.getAmount()+ " " + e.getType());
-    }*/
-
 
 }
 

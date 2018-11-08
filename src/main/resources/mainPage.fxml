@@ -4,170 +4,105 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.MainPageController">
+<AnchorPane prefHeight="600.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="csku.expense.MainPageController">
    <children>
-      <TabPane layoutY="50.0" prefHeight="500.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Home">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="246.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/icons8-wallet.png" />
-                           </image>
-                        </ImageView>
-                        <Text layoutX="286.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spendee" />
-                        <Text layoutX="287.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EASY" />
-                        <VBox layoutX="176.0" layoutY="159.0" prefHeight="285.0" prefWidth="235.0" spacing="20.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="218.0" spacing="15.0" style="-fx-border-color: #566573; -fx-border-radius: 5;">
-                                 <children>
-                                    <FontAwesomeIconView fill="#a0a2ab" glyphName="USER" size="25" text="">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </FontAwesomeIconView>
-                                    <Label fx:id="showUserLogin" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="183.0" style="-fx-background-color: #ffffff;" />
-                                 </children>
-                              </HBox>
-                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Current Balance">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="balanceLabelHomePage" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="86.0" prefWidth="224.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-border-color: #566573; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
-                                 <font>
-                                    <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton fx:id="logoutBtn" maxWidth="1.7976931348623157E308" onAction="#handleLogoutBtnHomeTab" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="LOGOUT" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-home.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-          <Tab text="Add Expense">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="balanceLabelAddPage" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="55.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="251.0" layoutY="94.0" text="Current balance" />
-                        <VBox layoutX="155.0" layoutY="149.0" prefHeight="314.0" prefWidth="291.0" spacing="20.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Date :" textAlignment="CENTER" />
-                                    <DatePicker fx:id="dateLabel" prefHeight="30.0" prefWidth="190.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Categories : " />
-                                    <ChoiceBox fx:id="categories" prefHeight="27.0" prefWidth="192.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Type :" textAlignment="CENTER" />
-                                    <ChoiceBox fx:id="typeOfExpense" prefHeight="27.0" prefWidth="192.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Detail :" />
-                                    <TextField fx:id="detailLabel" prefHeight="30.0" prefWidth="190.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="84.0" text="Amount :" textAlignment="CENTER" />
-                                    <TextField fx:id="amountLabel" prefHeight="30.0" prefWidth="190.0" />
-                                 </children>
-                              </HBox>
-                              <JFXButton fx:id="addBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#handleAddBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="ADD" textAlignment="CENTER">
-                                 <VBox.margin>
-                                    <Insets left="120.0" />
-                                 </VBox.margin>
-                              </JFXButton>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-add_property.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-            <Tab text="Expense List">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="balanceLabelListPage" alignment="CENTER" contentDisplay="CENTER" layoutX="206.0" layoutY="55.0" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="251.0" layoutY="94.0" text="Current balance" />
-                        <TableView fx:id="expenseListTable" editable="true" layoutX="21.0" layoutY="135.0" prefHeight="307.0" prefWidth="557.0" AnchorPane.topAnchor="135.0">
-                          <columns>
-                              <TableColumn fx:id="date" minWidth="90.0" prefWidth="90.0" text="Date" />
-                              <TableColumn fx:id="type" minWidth="110.0" prefWidth="110.0" text="Categories" />
-                              <TableColumn fx:id="details" minWidth="220.0" prefWidth="220.0" text="Detail" />
-                              <TableColumn fx:id="amount" minWidth="80.0" text="Amount" />
-                              <TableColumn fx:id="chooseType" minWidth="80.0" text="In/Ex" />
-                          </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" layoutX="164.0" layoutY="452.0" prefHeight="40.0" prefWidth="275.0" spacing="10.0">
-                           <children>
-                              <JFXButton fx:id="editBtn" onAction="#handleEditBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="EDIT" />
-                              <JFXButton fx:id="saveBtn" onAction="#handleSaveBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="SAVE" />
-                              <JFXButton fx:id="showBtn" onAction="#handleShowDataFormTextBtn" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #ffffff; -fx-border-color: #566573; -fx-border-radius: 5;" text="SHOW" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/icons8-tasklist.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-        </tabs>
-      </TabPane>
+      <VBox layoutX="40.0" layoutY="141.0" prefHeight="287.0" prefWidth="291.0" spacing="20.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="84.0" text="Date :" textAlignment="CENTER" />
+                  <DatePicker fx:id="dateLabel" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="84.0" text="Categories : " />
+                  <ChoiceBox fx:id="categories" prefHeight="27.0" prefWidth="190.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="84.0" text="Type :" textAlignment="CENTER" />
+                  <ChoiceBox fx:id="typeOfExpense" prefHeight="27.0" prefWidth="190.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="84.0" text="Detail :" />
+                  <TextField fx:id="detailLabel" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="84.0" text="Amount :" textAlignment="CENTER" />
+                  <TextField fx:id="amountLabel" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+               </children>
+            </HBox>
+            <JFXButton fx:id="addBtn" alignment="CENTER" contentDisplay="CENTER" onAction="#handleAddBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="ADD" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets left="120.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
+      <TableView fx:id="expenseListTable" editable="true" layoutX="398.0" layoutY="140.0" prefHeight="241.0" prefWidth="446.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" AnchorPane.topAnchor="140.0">
+        <columns>
+            <TableColumn fx:id="date" minWidth="90.0" prefWidth="90.0" text="Date" />
+            <TableColumn fx:id="type" minWidth="110.0" prefWidth="110.0" text="Categories" />
+            <TableColumn fx:id="details" minWidth="220.0" prefWidth="220.0" text="Detail" />
+            <TableColumn fx:id="amount" minWidth="80.0" text="Amount" />
+            <TableColumn fx:id="chooseType" minWidth="80.0" text="In/Ex" />
+        </columns>
+      </TableView>
+      <HBox alignment="CENTER" layoutX="484.0" layoutY="397.0" prefHeight="31.0" prefWidth="275.0" spacing="10.0">
+         <children>
+            <JFXButton fx:id="editBtn" onAction="#handleEditBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="EDIT" />
+            <JFXButton fx:id="saveBtn" onAction="#handleSaveBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SAVE" />
+            <JFXButton fx:id="showBtn" onAction="#handleShowDataFormTextBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SHOW" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="223.0" layoutY="509.0" prefHeight="50.0" prefWidth="500.0" spacing="10.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="52.0" text="TOTAL" textAlignment="CENTER" />
+            <ComboBox fx:id="totalByTypeOfExpense" onAction="#handleShowTotalFollowTypeOfExpense" prefHeight="29.0" prefWidth="191.0" style="-fx-background-color: WHITE; -fx-border-color: BLACK;" />
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="32.0" text="=" textAlignment="CENTER" />
+            <Label fx:id="showTotal" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="208.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK;" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <JFXButton fx:id="logoutBtn" layoutX="687.0" layoutY="43.0" maxWidth="1.7976931348623157E308" onAction="#handleLogoutBtnHomeTab" prefHeight="29.0" prefWidth="106.0" style="-fx-background-color: #F4D03F;" text="LOGOUT" />
+      <HBox alignment="CENTER_LEFT" layoutX="86.0" layoutY="37.0" prefHeight="40.0" prefWidth="578.0" spacing="20.0">
+         <children>
+            <FontAwesomeIconView fill="#a0a2ab" glyphName="USER" size="25" text="">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <Label fx:id="showUserLogin" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="183.0" style="-fx-background-color: #ffffff;" />
+            <Label text="Current balance : " />
+            <Label fx:id="balanceLabelAddPage" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: #ffffff; -fx-border-color: BLACK; -fx-border-radius: 5;" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Separator layoutX="39.0" layoutY="101.0" prefHeight="1.0" prefWidth="805.0" />
+      <Separator layoutX="35.0" layoutY="479.0" prefHeight="1.0" prefWidth="805.0" />
    </children>
 </AnchorPane>
