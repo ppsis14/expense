@@ -1,8 +1,5 @@
 package csku.expense;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Users implements ExpenseTransaction {
     private String id;
     private String pin;

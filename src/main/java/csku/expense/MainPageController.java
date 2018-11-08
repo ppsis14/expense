@@ -92,7 +92,9 @@ public class MainPageController implements Initializable {
         chooseType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, String>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
+                String t = event.getOldValue();
                 event.getTableView().getItems().get(event.getTablePosition().getRow()).setType(event.getNewValue());
+                //if (t.equals("Income") && event.getNewValue().equals("Expense")) users.addExpense();
             }
         });
 
@@ -100,10 +102,8 @@ public class MainPageController implements Initializable {
 
     @FXML
     public void handleSaveBtn(ActionEvent event) {
-        //expenseListTable.setEditable(false);
         dataAccessor.storeDataTo();
     }
-
 
     @FXML
     public void handleLogoutBtnHomeTab(ActionEvent event) throws IOException {
@@ -117,45 +117,8 @@ public class MainPageController implements Initializable {
         loginWindow.setResizable(true);
     }
 
-    public void writeToFile(String str){
-        String filename = "storeExpenseList.txt";
-        try {
-            PrintWriter outputStream = new PrintWriter(new BufferedWriter( new FileWriter(filename, true)));
-            outputStream.println(str);
-            outputStream.flush();
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readFormFile(){
-        String filename = "storeExpenseList.txt";
-        String FieldDelimiter = ",";
-
-        BufferedReader br;
-
-        try {
-            br = new BufferedReader(new FileReader(filename));
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(FieldDelimiter, -1);
-                list.add(new ExpenseList(fields[0], fields[1], fields[2], Double.parseDouble(fields[3]), fields[4]));
-            }
-
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     @FXML
     public void handleShowDataFormTextBtn(ActionEvent event) {
-        //readFormFile();
         dataAccessor.loadDataFrom();
     }
 
@@ -165,8 +128,6 @@ public class MainPageController implements Initializable {
         if (typeOfExpense.getValue().equals("Income"))users.addIncome(parseDouble(amountLabel.getText()));
         else if (typeOfExpense.getValue().equals("Expense"))users.addExpense(parseDouble(amountLabel.getText()));
         setBalanceAllPage(users.getUserBalance());
-        String text = getDate() + "," + categories.getValue() + "," + detailLabel.getText() + "," + Double.parseDouble(amountLabel.getText()) + "," + typeOfExpense.getValue();
-        writeToFile(text);
         clearData();
 
     }
@@ -211,9 +172,8 @@ public class MainPageController implements Initializable {
 
         expenseListTable.setItems(list);
 
-
-
-        //expenseListTable.getColumns().setAll(date, type, details, amount, chooseType);
+        dataAccessor = new FileAccessor(list);
+        dataAccessor.getConnection();
 
     }
 
