@@ -6,9 +6,14 @@ import java.sql.*;
 
 public class DatabaseAccessor implements DataAccessor {
     ObservableList<ExpenseList> list;
+    String status;
 
     public DatabaseAccessor(ObservableList<ExpenseList> list) {
         this.list = list;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     private void openDB() {
@@ -22,7 +27,8 @@ public class DatabaseAccessor implements DataAccessor {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
+        status = "Opened database successfully";
+        System.out.println(status);
     }
 
     private void insertIntoTable(ExpenseList expenseList) {
@@ -33,7 +39,7 @@ public class DatabaseAccessor implements DataAccessor {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:expense_db.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            //System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
             String sql = "insert into expenseTable (expenseDate, expenseCategory, expenseDetail, expenseAmount, expenseType)" +
@@ -41,7 +47,8 @@ public class DatabaseAccessor implements DataAccessor {
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
-            System.out.println("Insert data successfully");
+            status = "Insert data successfully";
+            System.out.println(status);
             c.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -56,7 +63,7 @@ public class DatabaseAccessor implements DataAccessor {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:expense_db.db");
             c.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            //System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
 
@@ -73,7 +80,8 @@ public class DatabaseAccessor implements DataAccessor {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Operation done successfully");
+        status = "Operation done successfully";
+        System.out.println(status);
     }
 
     @Override

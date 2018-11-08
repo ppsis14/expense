@@ -1,5 +1,6 @@
 package csku.expense;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -65,5 +66,15 @@ public class MyStepDef {
     @Then("my account balance of add expense is (\\d+)")
     public void myAccountBalanceOfAddExpenseIs(double balance ) {
         assertEquals(balance, users.getUserBalance());
+    }
+
+    @Then("^my total expense is (\\d+)$")
+    public void myTotalExpenseIs(double amount) {
+        assertEquals(amount, users.getTotalExpense());
+    }
+
+    @Then("^my total income is (\\d+)$")
+    public void myTotalIncomeIs(double amount){
+        assertEquals(amount, users.getTotalIncome());
     }
 }

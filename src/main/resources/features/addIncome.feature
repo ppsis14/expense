@@ -12,3 +12,8 @@ Feature: add income
     Scenario: Add income amount less zero
         When I add income less than zero is -20
         Then my account balance of add income is 200
+
+    Scenario: Add income more times
+        When I add income more than zero is 50
+        And I add income more than zero is 30
+        Then my total income is 80

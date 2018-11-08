@@ -5,9 +5,14 @@ import java.io.*;
 
 public class FileAccessor implements DataAccessor {
     ObservableList<ExpenseList> list;
+    String status;
 
     public FileAccessor(ObservableList<ExpenseList> lists) {
         this.list = lists;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override
@@ -20,6 +25,8 @@ public class FileAccessor implements DataAccessor {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        status = "Open file successfully";
+        System.out.println(status);
         writer.close();
     }
 
@@ -34,6 +41,8 @@ public class FileAccessor implements DataAccessor {
             String text = e.getDate() + "," + e.getCategory() + "," + e.getDetail() + "," + String.valueOf(e.getAmount()) + "," + e.getType();
             writeToFile(text);
         }
+        status = "Write data to file successfully";
+        System.out.println(status);
     }
 
     public void writeToFile(String str){
@@ -69,6 +78,10 @@ public class FileAccessor implements DataAccessor {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+        finally {
+            status = "Read file successfully";
+            System.out.println(status);
         }
     }
 }
