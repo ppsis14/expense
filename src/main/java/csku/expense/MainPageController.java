@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
@@ -34,6 +32,7 @@ public class MainPageController implements Initializable {
     @FXML private TextField amountLabel;
     @FXML private DatePicker dateLabel;
     @FXML private JFXButton addBtn;
+    @FXML private JFXButton updateBtn;
 
 
     // list tab
@@ -59,47 +58,36 @@ public class MainPageController implements Initializable {
         this.dataAccessor = dataAccessor;
     }
 
+    public ExpenseList selectObject(){
+        return expenseListTable.getSelectionModel().getSelectedItem();
+    }
+
+    public int positionSelected(){
+        return expenseListTable.getSelectionModel().getSelectedIndex();
+    }
+
     @FXML
     public void handleEditBtn(ActionEvent event) {
         expenseListTable.setEditable(true);
-
-        date.setCellFactory(TextFieldTableCell.forTableColumn());
-        date.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setDate(event.getNewValue());
-            }
-        });
-
-        type.setCellFactory(TextFieldTableCell.forTableColumn());
-        type.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setCategory(event.getNewValue());
-            }
-        });
-
-        details.setCellFactory(TextFieldTableCell.forTableColumn());
-        details.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setDetail(event.getNewValue());
-            }
-        });
-
-
-        chooseType.setCellFactory(TextFieldTableCell.forTableColumn());
-        chooseType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ExpenseList, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<ExpenseList, String> event) {
-                String t = event.getOldValue();
-                event.getTableView().getItems().get(event.getTablePosition().getRow()).setType(event.getNewValue());
-                //if (t.equals("Income") && event.getNewValue().equals("Expense")) users.addExpense();
-            }
-        });
+        System.out.println(positionSelected());
+        ExpenseList editExpense = selectObject();
+        dateLabel.setValue(LocalDate.parse(editExpense.getDate()));
+        categories.setValue(editExpense.getCategory());
+        detailLabel.setText(editExpense.getDetail());
+        amountLabel.setText(String.valueOf(editExpense.getAmount()));
+        typeOfExpense.setValue(editExpense.getType());
 
     }
 
+    // update data after edit in table
+    @FXML
+    public void handleUpdateBtn(ActionEvent event) {
+        list.set(positionSelected(), new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
+
+        expenseListTable.setEditable(false);
+    }
+
+    // save data to file of database
     @FXML
     public void handleSaveBtn(ActionEvent event) {
         dataAccessor.storeDataTo();
@@ -117,11 +105,13 @@ public class MainPageController implements Initializable {
         loginWindow.setResizable(true);
     }
 
+    // show data that store in from database or file
     @FXML
     public void handleShowDataFormTextBtn(ActionEvent event) {
         dataAccessor.loadDataFrom();
     }
 
+    // add expense list to table
     @FXML
     public void handleAddBtn(ActionEvent event) {
         list.add(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
@@ -132,6 +122,7 @@ public class MainPageController implements Initializable {
 
     }
 
+    // show total income or total expense
     @FXML
     public void handleShowTotalFollowTypeOfExpense(ActionEvent event) {
         if (totalByTypeOfExpense.getValue().equals("Income"))
@@ -173,6 +164,7 @@ public class MainPageController implements Initializable {
         expenseListTable.setItems(list);
 
         dataAccessor = new FileAccessor(list);
+        setDataAccessor(new DatabaseAccessor(list));
         dataAccessor.getConnection();
 
     }
@@ -181,6 +173,7 @@ public class MainPageController implements Initializable {
         balanceLabelAddPage.setText(currentBalance + " BHT ");
     }
 
+    // to transform date to string
     private String getDate(){
         LocalDate localDate = dateLabel.getValue();
         return localDate.toString();
