@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +26,8 @@ public class LoginPageController implements Initializable {
     @FXML private JFXButton loginButton;
     @FXML private JFXButton cancelButton;
 
-    Users users = new Users("1", "6499", "Thikamporn", 200.0);
+    private ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+    private Users users = context.getBean("user", Users.class);
 
     @FXML
     void handleCancelButton(ActionEvent event) {

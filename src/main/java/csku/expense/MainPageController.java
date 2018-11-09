@@ -12,6 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -49,8 +52,8 @@ public class MainPageController implements Initializable {
     @FXML private Label showTotal;
 
 
-
-    private Users users = new Users("1" ,"6499", "Thikamporn", 200.0);
+    private ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+    private Users users = context.getBean("user", Users.class);
     private DataAccessor dataAccessor;
     private ObservableList<ExpenseList> list = FXCollections.observableArrayList();
 
@@ -163,8 +166,7 @@ public class MainPageController implements Initializable {
 
         expenseListTable.setItems(list);
 
-        dataAccessor = new FileAccessor(list);
-        setDataAccessor(new DatabaseAccessor(list));
+        dataAccessor = new DatabaseAccessor(list);
         dataAccessor.getConnection();
 
     }

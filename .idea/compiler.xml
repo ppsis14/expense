@@ -10,5 +10,8 @@
         <module name="Lab04-expense" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Lab04-expense" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -3,7 +3,6 @@ package csku.expense;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
 public class DatabaseAccessor implements DataAccessor {
     ObservableList<ExpenseList> list;
     String status;

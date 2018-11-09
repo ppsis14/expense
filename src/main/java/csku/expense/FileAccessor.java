@@ -1,8 +1,8 @@
 package csku.expense;
 
 import javafx.collections.ObservableList;
-import java.io.*;
 
+import java.io.*;
 public class FileAccessor implements DataAccessor {
     ObservableList<ExpenseList> list;
     String status;
