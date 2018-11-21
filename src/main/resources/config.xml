@@ -20,7 +20,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <bean id="expenseDAOImp" class="csku.expense.ExpenseDAOImp">
+    <bean id="expenseDAOImp" class="csku.expense.ExpenseSpringDAOImp">
         <constructor-arg ref="jdbcTemplate" />
     </bean>
 

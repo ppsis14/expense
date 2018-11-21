@@ -47,7 +47,6 @@ public class MainPageController implements Initializable {
     @FXML private TableColumn<ExpenseList, Double> amount = new TableColumn<>("Amount");
     @FXML private TableColumn<ExpenseList, String> chooseType = new TableColumn<>("In/Ex");
     @FXML private JFXButton editBtn;
-    @FXML private JFXButton saveBtn;
     @FXML private JFXButton showBtn;
     @FXML private ComboBox<String> totalByTypeOfExpense;
     @FXML private Label showTotal;
@@ -56,15 +55,14 @@ public class MainPageController implements Initializable {
     private static ExpenseList eps;
     private ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
     private Users users = context.getBean("user", Users.class);
-   // ฝฝApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
-    private ExpenseDAO expenseDAO = context.getBean("expenseDAOImp", ExpenseDAO.class);
-
-    //private DataAccessor dataAccessor;
+    private ExpenseDAO expenseSpringDAO = context.getBean("expenseDAOImp", ExpenseDAO.class);
+    private ExpenseDAO databaseDao = new DatabaseDAOImp();
+    private ExpenseDAO dataAccessor;
     private ObservableList<ExpenseList> list = FXCollections.observableArrayList();
 
-    /*public void setDataAccessor(DataAccessor dataAccessor) {
+    public void setDataAccessor(ExpenseDAO dataAccessor) {
         this.dataAccessor = dataAccessor;
-    }*/
+    }
 
     public ExpenseList selectObject(){
         return expenseListTable.getSelectionModel().getSelectedItem();
@@ -90,22 +88,21 @@ public class MainPageController implements Initializable {
 
     @FXML
     void handleDeleteBtn(ActionEvent event) {
-        expenseDAO.deleteExpense(selectObject());
+
+        //expenseSpringDAO.deleteExpense(selectObject());
+        dataAccessor.deleteExpense(selectObject());
+        list.remove(positionSelected());
     }
 
     // update data after edit in table
     @FXML
     public void handleUpdateBtn(ActionEvent event) {
         list.set(positionSelected(), new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
-        expenseDAO.updateExpense(eps, getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue());
+
+        //expenseSpringDAO.updateExpense(eps, getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue());
+        dataAccessor.updateExpense(eps, getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue());
         expenseListTable.setEditable(false);
         clearData();
-    }
-
-    // save data to file of database
-    @FXML
-    public void handleSaveBtn(ActionEvent event) {
-        //dataAccessor.storeDataTo();
     }
 
     @FXML
@@ -122,12 +119,13 @@ public class MainPageController implements Initializable {
 
     // show data that store in from database or file
     @FXML
-    public void handleShowDataFormTextBtn(ActionEvent event) {
-        List<ExpenseList> expenseLists = expenseDAO.getAllExpenseList();
+    public void handleShowDataBtn(ActionEvent event) {
+        List<ExpenseList> expenseLists = expenseSpringDAO.getAllExpenseList();
+        list.clear();
         for (ExpenseList expense : expenseLists) {
+            list.add(expense);
             System.out.println(expense);
         }
-        //dataAccessor.loadDataFrom();
     }
 
     // add expense list to table
@@ -137,7 +135,9 @@ public class MainPageController implements Initializable {
         if (typeOfExpense.getValue().equals("Income"))users.addIncome(parseDouble(amountLabel.getText()));
         else if (typeOfExpense.getValue().equals("Expense"))users.addExpense(parseDouble(amountLabel.getText()));
         setBalanceAllPage(users.getUserBalance());
-        expenseDAO.insertExpense(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
+
+        //expenseSpringDAO.insertExpense(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
+        dataAccessor.insertExpense(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
         clearData();
 
     }
@@ -151,7 +151,7 @@ public class MainPageController implements Initializable {
             showTotal.setText(String.valueOf(users.getTotalExpense()));
         else showTotal.setText("");
 
-        List<ExpenseList> expenseLists = expenseDAO.getAllExpenseList();
+        List<ExpenseList> expenseLists = expenseSpringDAO.getAllExpenseList();
         for (ExpenseList expense : expenseLists) {
             System.out.println(expense);
         }
@@ -189,8 +189,7 @@ public class MainPageController implements Initializable {
 
         expenseListTable.setItems(list);
 
-        //dataAccessor = new DatabaseAccessor(list);
-        //dataAccessor.getConnection();
+        setDataAccessor(databaseDao);
 
     }
 

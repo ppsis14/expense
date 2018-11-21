@@ -71,8 +71,7 @@
          <children>
             <JFXButton fx:id="editBtn" onAction="#handleEditBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="EDIT" />
             <JFXButton fx:id="deleteBtn" onAction="#handleDeleteBtn" prefHeight="29.0" prefWidth="91.0" stylesheets="@style.css" text="DELETE" />
-            <JFXButton fx:id="saveBtn" onAction="#handleSaveBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SAVE" />
-            <JFXButton fx:id="showBtn" onAction="#handleShowDataFormTextBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SHOW" />
+            <JFXButton fx:id="showBtn" onAction="#handleShowDataBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SHOW" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="188.0" layoutY="509.0" prefHeight="50.0" prefWidth="500.0" spacing="10.0">

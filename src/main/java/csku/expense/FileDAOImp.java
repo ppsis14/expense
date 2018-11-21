@@ -1,22 +1,18 @@
 package csku.expense;
 
-import javafx.collections.ObservableList;
-
 import java.io.*;
-public class FileAccessor implements DataAccessor {
-    ObservableList<ExpenseList> list;
-    String status;
+import java.util.ArrayList;
+import java.util.List;
 
-    public FileAccessor(ObservableList<ExpenseList> lists) {
-        this.list = lists;
-    }
+public class FileDAOImp implements ExpenseDAO {
+    private String status;
 
     public String getStatus() {
         return status;
     }
-
+ 
     @Override
-    public void getConnection() {
+    public void insertExpense(ExpenseList expenseList) {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter("storeExpenseList.txt", "UTF-8");
@@ -27,42 +23,16 @@ public class FileAccessor implements DataAccessor {
         }
         status = "Open file successfully";
         System.out.println(status);
+        String text = expenseList.getDate() + "," + expenseList.getCategory() + "," + expenseList.getDetail() + "," + String.valueOf(expenseList.getAmount()) + "," + expenseList.getType();
+        writeToFile(text);
         writer.close();
     }
 
     @Override
-    public void loadDataFrom() {
-        readFormFile();
-    }
-
-    @Override
-    public void storeDataTo() {
-        for (ExpenseList e : list){
-            String text = e.getDate() + "," + e.getCategory() + "," + e.getDetail() + "," + String.valueOf(e.getAmount()) + "," + e.getType();
-            writeToFile(text);
-        }
-        status = "Write data to file successfully";
-        System.out.println(status);
-    }
-
-    public void writeToFile(String str){
-        String filename = "storeExpenseList.txt";
-        try {
-            PrintWriter outputStream = new PrintWriter(new BufferedWriter( new FileWriter(filename, true)));
-            outputStream.println(str);
-            outputStream.flush();
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void readFormFile(){
+    public List<ExpenseList> getAllExpenseList() {
+        List<ExpenseList> list = new ArrayList<>();
         String filename = "storeExpenseList.txt";
         String FieldDelimiter = ",";
-
         BufferedReader br;
 
         try {
@@ -83,5 +53,31 @@ public class FileAccessor implements DataAccessor {
             status = "Read file successfully";
             System.out.println(status);
         }
+        return list;
     }
+
+    @Override
+    public void updateExpense(ExpenseList expenseList, String date, String category, String detail, double amount, String type) {
+
+    }
+
+    @Override
+    public void deleteExpense(ExpenseList expenseList) {
+
+    }
+
+    public void writeToFile(String str){
+        String filename = "storeExpenseList.txt";
+        try {
+            PrintWriter outputStream = new PrintWriter(new BufferedWriter( new FileWriter(filename, true)));
+            outputStream.println(str);
+            outputStream.flush();
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

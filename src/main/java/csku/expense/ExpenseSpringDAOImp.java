@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ExpenseDAOImp implements ExpenseDAO {
+public class ExpenseSpringDAOImp implements ExpenseDAO {
     ObservableList<ExpenseList> list;
     private JdbcTemplate jdbcTemplate;
 
-    public ExpenseDAOImp(JdbcTemplate jdbcTemplate) {
+    public ExpenseSpringDAOImp(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -26,30 +26,9 @@ public class ExpenseDAOImp implements ExpenseDAO {
     }
 
     @Override
-    public ExpenseList getOneExpenseList(String filter) {
-        String query = "select * from account where accountNumber = " + filter;
-
-        ExpenseList expenseList = jdbcTemplate.queryForObject(query,
-                new RowMapper<ExpenseList>() {
-                    public ExpenseList mapRow(ResultSet rs, int rowNum)
-                            throws SQLException {
-                        ExpenseList expense = new ExpenseList(
-                                rs.getString("expenseDate"),
-                                rs.getString("expenseCategory"),
-                                rs.getString("expenseDetail"),
-                                rs.getDouble("expenseAmount"),
-                                rs.getString("expenseType"));
-                        return expense;
-                    }
-                });
-
-        return expenseList;
-    }
-
-    @Override
     public List<ExpenseList> getAllExpenseList() {
         String query = "select * from expenseTable";
-        List<ExpenseList> expenses = jdbcTemplate.query(query,new ExpenseDAOImp.ExpenseRowMapper());
+        List<ExpenseList> expenses = jdbcTemplate.query(query,new ExpenseSpringDAOImp.ExpenseRowMapper());
         return expenses;
     }
 
@@ -69,7 +48,7 @@ public class ExpenseDAOImp implements ExpenseDAO {
     @Override
     public void updateExpense(ExpenseList expenseList, String date, String category, String detail, double amount, String type) {
         String updateQuery = "update expenseTable set expenseDate=?, expenseCategory=?, expenseDetail=?, expenseAmount=?, expenseType=? where expenseDate=? and expenseCategory=? and expenseDetail=? and expenseAmount=? and expenseType=?";
-        System.out.println(expenseList.toString());
+        //System.out.println(expenseList.toString());
         jdbcTemplate.update(updateQuery, date, category, detail, amount, type, expenseList.getDate(), expenseList.getCategory(), expenseList.getDetail(), expenseList.getAmount(), expenseList.getType());
     }
 
