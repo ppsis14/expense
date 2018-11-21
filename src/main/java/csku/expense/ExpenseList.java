@@ -56,4 +56,14 @@ public class ExpenseList {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "ExpenseList{" +
+                "date='" + date + '\'' +
+                ", category='" + category + '\'' +
+                ", detail='" + detail + '\'' +
+                ", amount=" + amount +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

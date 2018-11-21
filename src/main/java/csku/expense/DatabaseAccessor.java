@@ -20,7 +20,7 @@ public class DatabaseAccessor implements DataAccessor {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:expense_db.db");
+            c = DriverManager.getConnection("jdbc:sqlite:expense.db");
 
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -36,7 +36,7 @@ public class DatabaseAccessor implements DataAccessor {
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:expense_db.db");
+            c = DriverManager.getConnection("jdbc:sqlite:expense.db");
             c.setAutoCommit(false);
             //System.out.println("Opened database successfully");
 
@@ -60,7 +60,7 @@ public class DatabaseAccessor implements DataAccessor {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:expense_db.db");
+            c = DriverManager.getConnection("jdbc:sqlite:expense.db");
             c.setAutoCommit(false);
             //System.out.println("Opened database successfully");
 

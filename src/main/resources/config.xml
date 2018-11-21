@@ -11,4 +11,17 @@
         <constructor-arg value="0.0"/>
     </bean>
 
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.sqlite.JDBC" />
+        <property name="url" value="jdbc:sqlite:expense.db" />
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="expenseDAOImp" class="csku.expense.ExpenseDAOImp">
+        <constructor-arg ref="jdbcTemplate" />
+    </bean>
+
 </beans>

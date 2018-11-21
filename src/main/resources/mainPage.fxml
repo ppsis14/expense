@@ -67,9 +67,10 @@
             <TableColumn fx:id="chooseType" minWidth="80.0" text="In/Ex" />
         </columns>
       </TableView>
-      <HBox alignment="CENTER" layoutX="484.0" layoutY="397.0" prefHeight="31.0" prefWidth="275.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="431.0" layoutY="397.0" prefHeight="31.0" prefWidth="381.0" spacing="20.0">
          <children>
             <JFXButton fx:id="editBtn" onAction="#handleEditBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="EDIT" />
+            <JFXButton fx:id="deleteBtn" onAction="#handleDeleteBtn" prefHeight="29.0" prefWidth="91.0" stylesheets="@style.css" text="DELETE" />
             <JFXButton fx:id="saveBtn" onAction="#handleSaveBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SAVE" />
             <JFXButton fx:id="showBtn" onAction="#handleShowDataFormTextBtn" prefHeight="29.0" prefWidth="71.0" stylesheets="@style.css" text="SHOW" />
          </children>

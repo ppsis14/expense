@@ -18,6 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static java.lang.Double.parseDouble;
@@ -50,16 +51,20 @@ public class MainPageController implements Initializable {
     @FXML private JFXButton showBtn;
     @FXML private ComboBox<String> totalByTypeOfExpense;
     @FXML private Label showTotal;
+    @FXML private JFXButton deleteBtn;
 
-
+    private static ExpenseList eps;
     private ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
     private Users users = context.getBean("user", Users.class);
-    private DataAccessor dataAccessor;
+   // ฝฝApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+    private ExpenseDAO expenseDAO = context.getBean("expenseDAOImp", ExpenseDAO.class);
+
+    //private DataAccessor dataAccessor;
     private ObservableList<ExpenseList> list = FXCollections.observableArrayList();
 
-    public void setDataAccessor(DataAccessor dataAccessor) {
+    /*public void setDataAccessor(DataAccessor dataAccessor) {
         this.dataAccessor = dataAccessor;
-    }
+    }*/
 
     public ExpenseList selectObject(){
         return expenseListTable.getSelectionModel().getSelectedItem();
@@ -73,27 +78,34 @@ public class MainPageController implements Initializable {
     public void handleEditBtn(ActionEvent event) {
         expenseListTable.setEditable(true);
         System.out.println(positionSelected());
-        ExpenseList editExpense = selectObject();
-        dateLabel.setValue(LocalDate.parse(editExpense.getDate()));
-        categories.setValue(editExpense.getCategory());
-        detailLabel.setText(editExpense.getDetail());
-        amountLabel.setText(String.valueOf(editExpense.getAmount()));
-        typeOfExpense.setValue(editExpense.getType());
+        eps = selectObject();
+        dateLabel.setValue(LocalDate.parse(eps.getDate()));
+        categories.setValue(eps.getCategory());
+        detailLabel.setText(eps.getDetail());
+        amountLabel.setText(String.valueOf(eps.getAmount()));
+        typeOfExpense.setValue(eps.getType());
 
+    }
+
+
+    @FXML
+    void handleDeleteBtn(ActionEvent event) {
+        expenseDAO.deleteExpense(selectObject());
     }
 
     // update data after edit in table
     @FXML
     public void handleUpdateBtn(ActionEvent event) {
         list.set(positionSelected(), new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
-
+        expenseDAO.updateExpense(eps, getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue());
         expenseListTable.setEditable(false);
+        clearData();
     }
 
     // save data to file of database
     @FXML
     public void handleSaveBtn(ActionEvent event) {
-        dataAccessor.storeDataTo();
+        //dataAccessor.storeDataTo();
     }
 
     @FXML
@@ -111,7 +123,11 @@ public class MainPageController implements Initializable {
     // show data that store in from database or file
     @FXML
     public void handleShowDataFormTextBtn(ActionEvent event) {
-        dataAccessor.loadDataFrom();
+        List<ExpenseList> expenseLists = expenseDAO.getAllExpenseList();
+        for (ExpenseList expense : expenseLists) {
+            System.out.println(expense);
+        }
+        //dataAccessor.loadDataFrom();
     }
 
     // add expense list to table
@@ -121,6 +137,7 @@ public class MainPageController implements Initializable {
         if (typeOfExpense.getValue().equals("Income"))users.addIncome(parseDouble(amountLabel.getText()));
         else if (typeOfExpense.getValue().equals("Expense"))users.addExpense(parseDouble(amountLabel.getText()));
         setBalanceAllPage(users.getUserBalance());
+        expenseDAO.insertExpense(new ExpenseList(getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue()));
         clearData();
 
     }
@@ -133,6 +150,12 @@ public class MainPageController implements Initializable {
         else if (totalByTypeOfExpense.getValue().equals("Expense"))
             showTotal.setText(String.valueOf(users.getTotalExpense()));
         else showTotal.setText("");
+
+        List<ExpenseList> expenseLists = expenseDAO.getAllExpenseList();
+        for (ExpenseList expense : expenseLists) {
+            System.out.println(expense);
+        }
+
     }
 
     @Override
@@ -166,8 +189,8 @@ public class MainPageController implements Initializable {
 
         expenseListTable.setItems(list);
 
-        dataAccessor = new DatabaseAccessor(list);
-        dataAccessor.getConnection();
+        //dataAccessor = new DatabaseAccessor(list);
+        //dataAccessor.getConnection();
 
     }
 
