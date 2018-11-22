@@ -146,11 +146,15 @@ public class MainPageController implements Initializable {
     // show total income or total expense
     @FXML
     public void handleShowTotalFollowTypeOfExpense(ActionEvent event) {
-        if (totalByTypeOfExpense.getValue().equals("Income"))
-            showTotal.setText(String.valueOf(users.getTotalIncome()));
-        else if (totalByTypeOfExpense.getValue().equals("Expense"))
-            showTotal.setText(String.valueOf(users.getTotalExpense()));
-        else showTotal.setText("");
+        List<ExpenseList> list = dataAccessor.getAllExpenseList();
+        double total = 0;
+        for (ExpenseList e : list){
+            if (e.getType().equals(totalByTypeOfExpense.getValue())){
+                total += e.getAmount();
+            }
+            showTotal.setText(String.valueOf(total));
+        }
+
     }
 
     @Override
@@ -185,6 +189,8 @@ public class MainPageController implements Initializable {
         expenseListTable.setItems(list);
 
         setDataAccessor(expenseSpringDAO);
+        users.setUserBalance(calculateCurrentBalance());
+        setBalanceAllPage(users.getUserBalance());
 
     }
 
@@ -204,6 +210,21 @@ public class MainPageController implements Initializable {
         totalByTypeOfExpense.setValue("None");
         detailLabel.clear();
         amountLabel.clear();
+    }
+
+    private double calculateCurrentBalance(){
+        List<ExpenseList> list = dataAccessor.getAllExpenseList();
+        double totalIncome = 0, totalExpense = 0;
+        for (ExpenseList e : list){
+            if (e.getType().equals("Income")){
+                totalIncome += e.getAmount();
+            }
+            else if (e.getType().equals("Expense")){
+                totalExpense += e.getAmount();
+            }
+        }
+        return  totalIncome - totalExpense;
+
     }
 
 }

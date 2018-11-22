@@ -40,6 +40,10 @@ public class Users implements ExpenseTransaction {
         return totalExpense;
     }
 
+    public void setUserBalance(double userBalance) {
+        this.userBalance = userBalance;
+    }
+
     @Override
     public void addIncome(double incomeMoney) {
 
