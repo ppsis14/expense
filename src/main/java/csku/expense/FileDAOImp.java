@@ -10,22 +10,23 @@ public class FileDAOImp implements ExpenseDAO {
     public String getStatus() {
         return status;
     }
- 
+
     @Override
     public void insertExpense(ExpenseList expenseList) {
-        PrintWriter writer = null;
+        String text = expenseList.getDate() + "," + expenseList.getCategory() + "," + expenseList.getDetail() + "," + String.valueOf(expenseList.getAmount()) + "," + expenseList.getType();
+        String filename = "storeExpenseList.txt";
         try {
-            writer = new PrintWriter("storeExpenseList.txt", "UTF-8");
+            PrintWriter outputStream = new PrintWriter(new BufferedWriter( new FileWriter(filename, true)));
+            outputStream.println(text);
+            status = "Write to file successfully";
+            System.out.println(status);
+            outputStream.flush();
+            outputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        status = "Open file successfully";
-        System.out.println(status);
-        String text = expenseList.getDate() + "," + expenseList.getCategory() + "," + expenseList.getDetail() + "," + String.valueOf(expenseList.getAmount()) + "," + expenseList.getType();
-        writeToFile(text);
-        writer.close();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class FileDAOImp implements ExpenseDAO {
             ex.printStackTrace();
         }
         finally {
-            status = "Read file successfully";
+            status = "Read from file successfully";
             System.out.println(status);
         }
         return list;
@@ -58,26 +59,29 @@ public class FileDAOImp implements ExpenseDAO {
 
     @Override
     public void updateExpense(ExpenseList expenseList, String date, String category, String detail, double amount, String type) {
-
+        List<ExpenseList> list = getAllExpenseList();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDate().equals(expenseList.getDate()) && list.get(i).getCategory().equals(expenseList.getCategory()) && list.get(i).getDetail().equals(expenseList.getDetail()) && list.get(i).getAmount()==expenseList.getAmount() && list.get(i).getType().equals(expenseList.getType()))
+            {
+                list.get(i).setDate(date);
+                list.get(i).setCategory(category);
+                list.get(i).setDetail(detail);
+                list.get(i).setAmount(amount);
+                list.get(i).setType(type);
+            }
+        }
+        status = "Update to file successfully";
+        System.out.println(status);
     }
 
     @Override
     public void deleteExpense(ExpenseList expenseList) {
-
-    }
-
-    public void writeToFile(String str){
-        String filename = "storeExpenseList.txt";
-        try {
-            PrintWriter outputStream = new PrintWriter(new BufferedWriter( new FileWriter(filename, true)));
-            outputStream.println(str);
-            outputStream.flush();
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<ExpenseList> list = getAllExpenseList();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getDate().equals(expenseList.getDate()) && list.get(i).getCategory().equals(expenseList.getCategory()) && list.get(i).getDetail().equals(expenseList.getDetail()) && list.get(i).getAmount()==expenseList.getAmount() && list.get(i).getType().equals(expenseList.getType()))
+            list.remove(i);
         }
+        status = "Delete from file successfully";
+        System.out.println(status);
     }
-
 }

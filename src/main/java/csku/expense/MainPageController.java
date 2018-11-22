@@ -58,6 +58,7 @@ public class MainPageController implements Initializable {
     private ExpenseDAO expenseSpringDAO = context.getBean("expenseDAOImp", ExpenseDAO.class);
     private ExpenseDAO databaseDao = new DatabaseDAOImp();
     private ExpenseDAO dataAccessor;
+    private ExpenseDAO fileDao= new FileDAOImp();
     private ObservableList<ExpenseList> list = FXCollections.observableArrayList();
 
     public void setDataAccessor(ExpenseDAO dataAccessor) {
@@ -120,7 +121,7 @@ public class MainPageController implements Initializable {
     // show data that store in from database or file
     @FXML
     public void handleShowDataBtn(ActionEvent event) {
-        List<ExpenseList> expenseLists = expenseSpringDAO.getAllExpenseList();
+        List<ExpenseList> expenseLists = dataAccessor.getAllExpenseList();
         list.clear();
         for (ExpenseList expense : expenseLists) {
             list.add(expense);
@@ -150,12 +151,6 @@ public class MainPageController implements Initializable {
         else if (totalByTypeOfExpense.getValue().equals("Expense"))
             showTotal.setText(String.valueOf(users.getTotalExpense()));
         else showTotal.setText("");
-
-        List<ExpenseList> expenseLists = expenseSpringDAO.getAllExpenseList();
-        for (ExpenseList expense : expenseLists) {
-            System.out.println(expense);
-        }
-
     }
 
     @Override
@@ -189,7 +184,7 @@ public class MainPageController implements Initializable {
 
         expenseListTable.setItems(list);
 
-        setDataAccessor(databaseDao);
+        setDataAccessor(expenseSpringDAO);
 
     }
 
