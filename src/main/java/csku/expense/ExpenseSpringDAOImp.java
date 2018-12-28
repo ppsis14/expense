@@ -18,7 +18,7 @@ public class ExpenseSpringDAOImp implements ExpenseDAO {
 
     @Override
     public void insertExpense(ExpenseList expenseList) {
-        String query = "insert into expenseTable (expenseDate, expenseCategory, expenseDetail, expenseAmount, expenseType) values (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO expenseTable (expenseDate, expenseCategory, expenseDetail, expenseAmount, expenseType) VALUES (?, ?, ?, ?, ?)";
         Object[] data = new Object[]
                 {expenseList.getDate(), expenseList.getCategory(), expenseList.getDetail(), expenseList.getAmount(), expenseList.getType()};
         jdbcTemplate.update(query, data);
@@ -27,7 +27,7 @@ public class ExpenseSpringDAOImp implements ExpenseDAO {
 
     @Override
     public List<ExpenseList> getAllExpenseList() {
-        String query = "select * from expenseTable";
+        String query = "SELECT expenseDate, expenseCategory, expenseDetail, expenseAmount, expenseType FROM expenseTable";
         List<ExpenseList> expenses = jdbcTemplate.query(query,new ExpenseSpringDAOImp.ExpenseRowMapper());
         return expenses;
     }
@@ -47,14 +47,14 @@ public class ExpenseSpringDAOImp implements ExpenseDAO {
 
     @Override
     public void updateExpense(ExpenseList expenseList, String date, String category, String detail, double amount, String type) {
-        String updateQuery = "update expenseTable set expenseDate=?, expenseCategory=?, expenseDetail=?, expenseAmount=?, expenseType=? where expenseDate=? and expenseCategory=? and expenseDetail=? and expenseAmount=? and expenseType=?";
+        String updateQuery = "UPDATE expenseTable SET expenseDate=?, expenseCategory=?, expenseDetail=?, expenseAmount=?, expenseType=? WHERE expenseDate=? AND expenseCategory=? AND expenseDetail=? AND expenseAmount=? AND expenseType=?";
         //System.out.println(expenseList.toString());
         jdbcTemplate.update(updateQuery, date, category, detail, amount, type, expenseList.getDate(), expenseList.getCategory(), expenseList.getDetail(), expenseList.getAmount(), expenseList.getType());
     }
 
     @Override
     public void deleteExpense(ExpenseList expenseList) {
-        String deleteQuery = "delete from expenseTable where expenseDate=? and expenseCategory=? and expenseDetail=? and expenseAmount=? and expenseType=?";
+        String deleteQuery = "DELETE FROM expenseTable WHERE expenseDate=? AND expenseCategory=? AND expenseDetail=? AND expenseAmount=? AND expenseType=?";
         jdbcTemplate.update(deleteQuery, expenseList.getDate(), expenseList.getCategory(), expenseList.getDetail(), expenseList.getAmount(), expenseList.getType());
 
     }

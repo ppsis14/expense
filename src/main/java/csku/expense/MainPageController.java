@@ -93,6 +93,8 @@ public class MainPageController implements Initializable {
         //expenseSpringDAO.deleteExpense(selectObject());
         dataAccessor.deleteExpense(selectObject());
         list.remove(positionSelected());
+        users.setUserBalance(calculateCurrentBalance());
+        setBalanceAllPage(users.getUserBalance());
     }
 
     // update data after edit in table
@@ -104,6 +106,8 @@ public class MainPageController implements Initializable {
         dataAccessor.updateExpense(eps, getDate(), categories.getValue(), detailLabel.getText(), parseDouble(amountLabel.getText()), typeOfExpense.getValue());
         expenseListTable.setEditable(false);
         clearData();
+        users.setUserBalance(calculateCurrentBalance());
+        setBalanceAllPage(users.getUserBalance());
     }
 
     @FXML
@@ -148,13 +152,15 @@ public class MainPageController implements Initializable {
     public void handleShowTotalFollowTypeOfExpense(ActionEvent event) {
         List<ExpenseList> list = dataAccessor.getAllExpenseList();
         double total = 0;
-        for (ExpenseList e : list){
-            if (e.getType().equals(totalByTypeOfExpense.getValue())){
-                total += e.getAmount();
+        if (totalByTypeOfExpense.getValue().equals("None")) showTotal.setText(String.valueOf(users.getUserBalance()));
+        else {
+            for (ExpenseList e : list){
+                if (e.getType().equals(totalByTypeOfExpense.getValue())){
+                    total += e.getAmount();
+                }
+                showTotal.setText(String.valueOf(total));
             }
-            showTotal.setText(String.valueOf(total));
         }
-
     }
 
     @Override
@@ -191,6 +197,7 @@ public class MainPageController implements Initializable {
         setDataAccessor(expenseSpringDAO);
         users.setUserBalance(calculateCurrentBalance());
         setBalanceAllPage(users.getUserBalance());
+        showTotal.setText(String.valueOf(users.getUserBalance()));
 
     }
 
